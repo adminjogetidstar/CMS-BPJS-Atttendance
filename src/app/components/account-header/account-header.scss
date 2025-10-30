@@ -1,0 +1,149 @@
+@use 'variables' as *;
+
+.account-header {
+    background: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
+    border-radius: 0px 0px 30px 30px;
+    position: fixed;
+    top: 0;
+    height: 84px;
+    z-index: 100;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.account-header-user-img {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f1f1f1;
+}
+
+.relative-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dot-button {
+    margin-left: -15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    padding: 4px 6px;
+}
+
+.account-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    padding: 5px 10px;
+    min-width: 150px;
+    background: white;
+    box-shadow: 3px 0px 9px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #efefef;
+    border-radius: 1em 0 1em 1em;
+    display: none;
+    z-index: 10;
+
+    &.show {
+        display: block;
+        animation: fadeIn 0.2s ease-in-out;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+
+        img {
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+
+    padding: 0.5rem 1rem;
+
+    cursor: pointer;
+    position: relative;
+    min-width: 260px;
+    max-width: 320px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e0e0e0;
+    margin-right: 0.75rem;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .avatar-placeholder {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #c4c4c4;
+    }
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    fa-icon {
+        font-size: 0.8rem;
+        color: #555;
+        margin-left: 0.5rem;
+    }
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

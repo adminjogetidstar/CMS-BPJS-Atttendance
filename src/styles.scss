@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'bootstrap/dist/css/bootstrap.min.css';
+@use 'ngx-toastr/toastr' as *;
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'base' as *;
+
+body {
+    font-family: $font-base;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}

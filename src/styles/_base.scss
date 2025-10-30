@@ -1,0 +1,35 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+body {
+    font-family: $font-base;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+// Buttons
+.btn-primary {
+    @include btn-style($color-primary, $color-white, none, $color-primary-light);
+}
+
+.btn-outline-primary {
+    @include btn-style($color-white, $color-primary, 1px solid $color-primary, #fff5f5);
+}
+
+// Status badges
+.status-hadir {
+    @include badge(#d1fae5, $color-success);
+}
+
+.status-izin {
+    @include badge(#fef9c3, $color-warning);
+}
+
+.status-sakit {
+    @include badge(#dbeafe, $color-info);
+}
+
+.status-alfa {
+    @include badge(#fee2e2, $color-danger);
+}

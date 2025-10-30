@@ -1,0 +1,35 @@
+<div class="pagination-container mt-2">
+    <!-- Page size -->
+    <div class="page-size-container">
+        <span class="fs-14">List halaman: </span>
+        <div class="page-size-items ml-2">
+            <button type="button" class="page-size" *ngFor="let size of pageSizes"
+                [ngClass]="{ 'active': size === itemsPerPage }" (click)="changePageSize(size)"
+                (keydown.enter)="changePageSize(size)" tabindex="0">
+                {{ size }}
+            </button>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <div class="page-navigation">
+        <nav class="d-flex justify-content-end">
+            <div class="pagination">
+                <!-- Prev -->
+                <button class="bg-transparent border-0 d-flex align-items-center" [disabled]="currentPage === 1"
+                    (click)="prev()">
+                    <img src="./assets/icons/prev-circle.svg" alt="Prev" />
+                </button>
+                <!-- Page items -->
+                <div *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage"
+                    [class.disabled]="page === '...'" (click)="onPageChange(page)" (keydown.enter)="onPageChange(page)">
+                    <a class="page-link">{{ page }}</a>
+                </div>
+                <!-- Next -->
+                <button class="bg-transparent border-0 d-flex align-items-center"
+                    [disabled]="currentPage === totalPages" (click)="next()">
+                    <img src="./assets/icons/next-circle.svg" alt="Next" />
+                </button>
+            </div>
+        </nav>
+    </div>
+</div>

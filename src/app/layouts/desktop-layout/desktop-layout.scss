@@ -1,0 +1,50 @@
+.desktop-layout {
+    display: flex;
+    gap: 1rem;
+    min-height: 100vh;
+    background: #f8fbff;
+    padding: 1rem;
+    justify-content: center;
+
+    /* tambahkan jarak dari header desktop */
+    margin-top: 84px;
+    /* sama seperti tinggi account-header-desktop */
+}
+
+
+.desktop-wrapper {
+    width: 90vw;
+    display: flex;
+    gap: 10px;
+}
+
+main.content {
+    width: calc(100vw - 300px);
+    margin-left: 200px;
+
+    .card {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .card-body {
+        min-height: calc(100vh - 2rem);
+        width: 100%;
+    }
+}
+
+.with-account-header-desktop {
+    min-height: calc(100vh - 84px);
+
+    &>main.content>.card>.card-body {
+        min-height: calc(100vh - 2rem - 84px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main.content {
+        width: calc(100vw - 150px);
+        margin-left: 80px;
+    }
+}

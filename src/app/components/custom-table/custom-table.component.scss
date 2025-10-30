@@ -1,0 +1,174 @@
+$idstar-red: #e74c3c;
+$base-text-color: #717171;
+
+.badge-status {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+
+.table-idstar {
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    th,
+    td {
+        vertical-align: middle;
+    }
+
+    th {
+        background-color: $idstar-red;
+        border: none;
+
+        div {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+    }
+
+    tr:nth-child(even) {
+        td {
+            background: #FFF5F5;
+        }
+
+        td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    }
+
+    tr:nth-child(odd) {
+        td {
+            background: #ffffff;
+        }
+
+        td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    }
+
+    th:first-child {
+        border-radius: 8px 0 0 0;
+    }
+
+    th:last-child {
+        border-radius: 0 8px 0 0;
+    }
+
+    td {
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        color: $base-text-color;
+        font-size: 12px;
+    }
+
+    thead>tr {
+        height: 45px;
+    }
+
+    tbody>tr {
+        height: 50px;
+    }
+}
+
+.td-content-ellipsis {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    display: block;
+}
+
+.div-button.action {
+    color: $idstar-red;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.div-button.edit {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-color: rgb(181, 181, 181);
+    border-radius: 100%;
+}
+
+.icon-sort {
+    cursor: pointer;
+    padding: 0 8px
+}
+
+.action-edit-delete-wrapper {
+    display: flex;
+    gap: 1px;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-butdetail {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.kewenangan-column {
+    line-height: 1.5;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+    transition: all 0.2s ease-in-out;
+    cursor: default;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    &.status-hadir {
+        background-color: #d1fae5;
+        color: #065f46;
+    }
+
+    &.status-izin {
+        background-color: #fef9c3;
+        color: #854d0e;
+    }
+
+    &.status-sakit {
+        background-color: #dbeafe;
+        color: #1e3a8a;
+    }
+
+    &.status-alfa {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+}

@@ -1,0 +1,95 @@
+<table class="table table-idstar">
+  <thead>
+    <tr>
+      @for (config of tableConfigs; track config.columnName) {
+      <th [ngStyle]="{'width': config.width ?? 'unset' }">
+        <div>
+          {{ config.columnName }}
+          @if (config.checkbox) {
+          <label class="cb-container">
+            <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll()" />
+            <span class="checkmark"></span>
+          </label>
+          }
+          @if (config.sortable) {
+          <button class="image-button">
+            <img class="icon-sort" alt="" src="./assets/icons/icon-sort.svg" />
+          </button>
+          }
+        </div>
+      </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @if(!isLoading){
+    @for (data of tableData; track data.id) {
+    <tr>
+      @for (config of tableConfigs; track config.columnName) {
+
+      @if(data[config.fieldName] === null) {
+      <td>
+        <div>-</div>
+      </td>
+      }
+      @else {
+      <td>
+        @if (config.tdType === TdTypes.text) {
+        <div class="td-content-ellipsis">
+          @if (config.fieldName === 'isApprover') {
+          <div>{{ getValue(data, config.fieldName) }}</div>
+          } @else if (config.fieldName === 'status') {
+          <div>{{ data[config.fieldName] }}</div>
+          } @else {
+          {{ getValue(data, config.fieldName) }}
+          }
+        </div>
+        }
+        <!-- STATUS -->
+        @else if (config.tdType === TdTypes.status) {
+        <div class="td-content-ellipsis">
+          <span class="status-badge" [ngClass]="{
+              'status-hadir': data[config.fieldName] === 'Hadir',
+              'status-izin': data[config.fieldName] === 'Izin',
+              'status-sakit': data[config.fieldName] === 'Sakit',
+              'status-alfa': data[config.fieldName] === 'Alfa'
+            }">
+            {{ data[config.fieldName] }}
+          </span>
+        </div>
+        }
+        <!-- DATETIME -->
+        @else if (config.tdType === TdTypes.dateTime) {
+        <div class="td-content-ellipsis text-gray-700">
+          {{ data[config.fieldName] ? (data[config.fieldName] | date:'shortTime') : '-' }}
+        </div>
+        }
+
+        @else if (config.tdType === TdTypes.actionDetail) {
+        <button class="div-button action" (click)="actionClickHandle('Detail', data)">
+          {{ ActionTexts[config.tdType] }}
+        </button>
+        }
+        @else if (config.tdType === TdTypes.actionEdit) {
+        <button class="div-button edit" (click)="actionClickHandle('edit', data)" title="Edit">
+          <fa-icon [icon]="fa.faEdit"></fa-icon>
+        </button>
+        }
+        @else if (config.tdType === TdTypes.actionEditDelete) {
+        <div class="action-edit-delete-wrapper">
+          <button class="div-butdetail" (click)="actionClickHandle('edit', data)">
+            <img class="me-2 tombol" src="/assets/icons/icoedit.png" alt="edit" />
+          </button>
+          <button class="div-butdetail" (click)="actionClickHandle('delete', data)">
+            <img class="me-2 tombol" src="/assets/icons/icodelete.png" alt="delete" />
+          </button>
+        </div>
+        }
+      </td>
+      }
+      }
+    </tr>
+    }
+    }
+  </tbody>
+</table>

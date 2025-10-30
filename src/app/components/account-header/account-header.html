@@ -1,0 +1,25 @@
+<div class="account-header">
+    <img src="/assets/img/idstar-logo.png" alt="idstar" />
+    <div class="user-card" (click)="toggleMenu()">
+        <!-- Avatar -->
+        <div class="avatar">
+            <img src="sss" alt="User Avatar" />
+            <ng-template #defaultAvatar>
+                <div class="avatar-placeholder"></div>
+            </ng-template>
+        </div>
+        <div class="user-info">
+            <div class="user-name">
+                testtt
+                <fa-icon [icon]="faChevronDown"></fa-icon>
+            </div>
+            <div class="user-role">Super </div>
+        </div>
+        <div class="account-menu" [class.show]="showMenu">
+            <button class="btn-icon text-muted" (click)="onLogout(); $event.stopPropagation()">
+                <img class="mr-2" src="assets/icons/logout.png" alt="Logout" />
+                <strong>Logout</strong>
+            </button>
+        </div>
+    </div>
+</div>

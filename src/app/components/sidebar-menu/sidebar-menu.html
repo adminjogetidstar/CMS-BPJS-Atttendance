@@ -1,0 +1,24 @@
+<aside class="sidebar" [class.show]="sidebarOpen">
+    <div class="card">
+        <button class="card-header" (click)="toggleSideMenu()">Menu</button>
+        <div class="card-body">
+            <ng-container *ngFor="let group of groupedMenuKeys">
+                <div class="menu-group">
+                    <a (click)="toggleGroup(group)" class="group-header" href="javascript:void(0)">
+                        <img [src]="getGroupIcon(group)" width="16" height="16" alt="icon" />
+                        <span>{{ group }}</span>
+                        <fa-icon class="chevron-icon" [icon]="isGroupOpen(group) ? faChevronDown : faChevronUp">
+                        </fa-icon>
+                    </a>
+                    <div *ngIf="isGroupOpen(group)" class="submenu">
+                        <a *ngFor="let menu of groupedMenus[group]" [routerLink]="menu.route" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }" (click)="setActive(menu)"
+                            [class.active]="isActive(menu)" class="menu-item">
+                            <span>{{ menu.menu_name }}</span>
+                        </a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</aside>
