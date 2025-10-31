@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { OfficeLocation } from './office-location';
+import { OfficeLocationComponent } from './office-location';
 
 export const routes: Routes = [
     {
         path: '',
         children: [
-            { path: '', component: OfficeLocation },
+            { path: '', component: OfficeLocationComponent },
         ],
     },
 ];

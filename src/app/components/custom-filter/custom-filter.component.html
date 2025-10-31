@@ -1,0 +1,58 @@
+<form class="d-flex gap-3 align-items-center" [formGroup]="formFilter">
+    <ng-container *ngFor="let config of filterConfigs">
+        <!-- TEXT -->
+        <div *ngIf="config.type === 'text'" class="relative-container" [style.width]="config.width ?? 'unset'">
+            <input type="text" formControlName="{{config.field}}" [class.has-value]="filterFG.get(config.field)?.value"
+                [class.is-invalid]="isInvalid(filterFG, config.field)" class="form-control" />
+            <span class="placeholder">{{config.placeholder}}</span>
+        </div>
+
+        <!-- DATE -->
+        <div *ngIf="config.type === 'date'" class="relative-container dp-container"
+            [style.width]="config.width ?? 'unset'">
+            <input type="text" formControlName="{{config.field}}" bsDatepicker
+                [class.has-value]="filterFG.get(config.field)?.value"
+                [class.is-invalid]="isInvalid(filterFG, config.field)" class="form-control" />
+            <span class="placeholder">{{config.placeholder}}</span>
+        </div>
+
+        <!-- DATE RANGE -->
+        <div *ngIf="config.type === 'dateRange'" class="relative-container dp-container"
+            [style.width]="config.width ?? 'unset'">
+            <input type="text" formControlName="{{config.field}}" bsDaterangepicker
+                [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-idstar-primary' }"
+                [class.has-value]="filterFG.get(config.field)?.value"
+                [class.is-invalid]="isInvalid(filterFG, config.field)" class="form-control" />
+            <span class="placeholder">{{config.placeholder}}</span>
+        </div>
+
+        <!-- DROPDOWN -->
+        <div *ngIf="config.type === 'dropdown'" class="relative-container" [style.width]="config.width ?? 'unset'">
+            <!-- KHUSUS untuk 'is_in_office' agar pakai boolean -->
+            <select *ngIf="config.field === 'is_in_office'; else normalDropdown" formControlName="{{config.field}}"
+                class="form-select" [class.has-value]="filterFG.get(config.field)?.value"
+                [class.is-invalid]="isInvalid(filterFG, config.field)">
+                <option [ngValue]="null">{{ config.placeholder }}</option>
+                <option *ngFor="let option of config.options" [ngValue]="option.value">
+                    {{ option.label }}
+                </option>
+            </select>
+            <!-- DROPDOWN BIASA -->
+            <ng-template #normalDropdown>
+                <select formControlName="{{config.field}}" class="form-select"
+                    [class.has-value]="filterFG.get(config.field)?.value"
+                    [class.is-invalid]="isInvalid(filterFG, config.field)">
+                    <option [ngValue]="null">{{ config.placeholder }}</option>
+                    <option *ngFor="let option of config.options" [ngValue]="option.value">
+                        {{ option.label }}
+                    </option>
+                </select>
+            </ng-template>
+        </div>
+    </ng-container>
+
+    <button type="button" class="btn-idstar btn-idstar-primary d-flex justify-content-center align-items-center"
+        style="width: 36px; height: 36px; padding: 0;" (click)="searchClickHandle()">
+        <img src="assets/icons/icon-search.svg" alt="search" width="16" height="16" />
+    </button>
+</form>

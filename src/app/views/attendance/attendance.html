@@ -1,29 +1,35 @@
 <div class="card-container d-flex flex-column">
-    <span class="text-idstar-red fs-5 fw-bold text-nowrap">Absensi Karyawan</span>
-    <div class="d-flex align-items-center gap-3 mt-3 flex-wrap">
-        <input type="text" [(ngModel)]="searchKeyword" (ngModelChange)="applyFilter()" class="form-control w-auto"
-            placeholder="Cari nama karyawan..." />
-        <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilter()" class="form-select w-auto">
-            <option value="Semua">Semua Status</option>
-            <option value="Hadir">Hadir</option>
-            <option value="Izin">Izin</option>
-            <option value="Sakit">Sakit</option>
-        </select>
-        <button class="btn-idstar btn-idstar-outline ms-auto d-flex align-items-center" (click)="openCreateModal()">
-            <img src="assets/icons/plus-circle.svg" class="me-2" style="width: 30px; height: 30px" />
+    <span class="text-idstar-red fs-5 fw-bold">Attendance</span>
+
+    <div *ngIf="loading" class="loading-overlay d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap align-items-center gap-3 mt-3 w-100">
+        <app-custom-filter [filterConfigs]="filterConfigs" (onFilterSearchClick)="onFilterSearch($event)">
+        </app-custom-filter>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-2 w-100">
+        <button class="btn-idstar btn-idstar-outline d-flex align-items-center" (click)="openCreateModal()">
+            <img src="assets/icons/plus-circle.svg" class="me-2" />
             Tambah Absensi
         </button>
+        <button class="btn-idstar btn-idstar-outline d-flex align-items-center" (click)="downloadCSV()">
+            <img src="assets/icons/download.svg" class="me-2" />
+            Download CSV
+        </button>
     </div>
-    <ng-container *ngIf="!(loading$ | async)">
-        <ng-container *ngIf="paginatedData.length; else emptyState">
-            <app-custom-table class="mt-3" [tableData]="paginatedData" [tableConfigs]="tableConfigs"
-                (onActionClick)="actionRecord($event)">
-            </app-custom-table>
-            <app-pagination [totalRecord]="filteredData.length" [itemsPerPage]="itemsPerPage"
-                [currentPage]="currentPage" (pageSize)="onPageSizeChange($event)" (activePage)="onPageChange($event)">
-            </app-pagination>
-        </ng-container>
+
+    <ng-container *ngIf="paginatedData.length; else emptyState">
+        <app-custom-table class="mt-3" [tableData]="paginatedData" [tableConfigs]="tableConfigs"
+            (onActionClick)="actionRecord($event)">
+        </app-custom-table>
+        <app-pagination [totalRecord]="filteredData.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+            (activePage)="onPageChange($event)">
+        </app-pagination>
     </ng-container>
+
     <ng-template #emptyState>
         <div class="d-flex flex-column justify-content-center align-items-center mt-5 p-4">
             <img src="assets/icons/not found.svg" alt="No Data" style="max-width: 250px" />
@@ -32,10 +38,10 @@
 </div>
 
 <app-attendance-form *ngIf="showModal" [visible]="showModal" [mode]="modalMode" [record]="selectedRecord"
-    (close)="closeModal()" (save)="saveRecord($event)">
+    (close)="showModal = false" (save)="saveRecord($event)">
 </app-attendance-form>
 
-<!-- Modal Konfirmasi Delete -->
+<!-- Modal Konfirmasi Hapus -->
 <div class="modal fade show d-block" tabindex="-1" *ngIf="confirmDeleteVisible"
     style="background-color: rgba(0,0,0,0.5)">
     <div class="modal-dialog modal-dialog-centered">
@@ -46,13 +52,13 @@
             </div>
             <div class="modal-body">
                 <p>
-                    Apakah Anda yakin ingin menghapus data absensi
-                    <strong>{{ recordToDelete?.employeeName }}</strong>?
+                    Apakah Anda yakin ingin menghapus user
+                    <strong>{{ recordToDelete?.id }}</strong>?
                 </p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" (click)="closeConfirmModal()">Batal</button>
-                <button class="btn btn-danger" (click)="confirmDelete()">Hapus</button>
+                <button class="btn btn-danger" (click)="deleteRecord()">Hapus</button>
             </div>
         </div>
     </div>

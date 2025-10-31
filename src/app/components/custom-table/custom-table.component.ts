@@ -117,8 +117,11 @@ export class CustomTableComponent {
   }
 
   getValue(data: any, fieldPath: string): any {
-    if (!data || !fieldPath) return null;
-    return fieldPath.split('.').reduce((obj, key) => obj?.[key], data);
+    const value = fieldPath.split('.').reduce((obj, key) => obj?.[key], data);
+    if (fieldPath === 'profile_photo') {
+      return value || null;
+    }
+    return value;
   }
 
 }

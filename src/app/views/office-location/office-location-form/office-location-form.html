@@ -1,0 +1,51 @@
+<div class="modal-backdrop fade show" *ngIf="visible"></div>
+
+<div class="modal fade show d-block" tabindex="-1" *ngIf="visible">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ mode === 'create' ? 'Tambah Lokasi' : 'Edit Lokasi' }}</h5>
+                <button type="button" class="btn-close" (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lokasi</label>
+                        <input type="text" class="form-control" formControlName="name" />
+                        <small class="text-danger" *ngIf="f['name'].touched && f['name'].invalid">Nama wajib
+                            diisi.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Latitude</label>
+                        <input type="number" class="form-control" formControlName="latitude" />
+                        <small class="text-danger" *ngIf="f['latitude'].touched && f['latitude'].invalid">Nilai latitude
+                            tidak valid (-90 s.d 90).</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Longitude</label>
+                        <input type="number" class="form-control" formControlName="longitude" />
+                        <small class="text-danger" *ngIf="f['longitude'].touched && f['longitude'].invalid">Nilai
+                            longitude tidak valid (-180 s.d 180).</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Radius (meter)</label>
+                        <input type="number" class="form-control" formControlName="radius" />
+                        <small class="text-danger" *ngIf="f['radius'].touched && f['radius'].invalid">Radius harus lebih
+                            dari 0.</small>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="is_active" id="is_active" />
+                        <label class="form-check-label" for="is_active">Aktif</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="onClose()">Batal</button>
+                <button class="btn btn-danger" (click)="onSave()" [disabled]="saving">
+                    <span *ngIf="saving" class="spinner-border spinner-border-sm me-2"></span>
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

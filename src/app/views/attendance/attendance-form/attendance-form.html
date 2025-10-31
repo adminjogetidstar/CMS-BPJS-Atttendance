@@ -1,30 +1,113 @@
-<div class="modal-backdrop fade show" *ngIf="visible"></div>
+<div class="modal fade show d-block bg-black bg-opacity-50" tabindex="-1" *ngIf="visible"
+    style="backdrop-filter: blur(2px);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title">
+                    {{ mode === 'create' ? 'Tambah Absensi' : 'Edit Absensi' }}
+                </h5>
+                <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
 
-<div class="modal fade show d-block" tabindex="-1" *ngIf="visible">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ mode === 'create' ? 'Tambah Absensi Baru' : 'Edit Absensi' }}</h5>
-                <button type="button" class="btn-close" (click)="onClose()"></button>
-            </div>
             <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Nama Karyawan</label>
-                    <input type="text" class="form-control" [(ngModel)]="formData.employeeName" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select class="form-select" [(ngModel)]="formData.status">
-                        <option value="Hadir">Hadir</option>
-                        <option value="Izin">Izin</option>
-                        <option value="Sakit">Sakit</option>
-                        <option value="Alfa">Alfa</option>
-                    </select>
-                </div>
+                <form [formGroup]="form" class="grid grid-cols-2 gap-3">
+                    <!-- User -->
+                    <div>
+                        <label>User ID <span class="text-danger">*</span></label>
+                        <input formControlName="user_id" class="form-control" type="number" />
+                    </div>
+
+                    <!-- Purpose -->
+                    <div>
+                        <label>Purpose ID <span class="text-danger">*</span></label>
+                        <input formControlName="purpose_id" class="form-control" type="number" />
+                    </div>
+
+                    <!-- Check In -->
+                    <div>
+                        <label>Check In Time</label>
+                        <input type="datetime-local" class="form-control" formControlName="check_in_time" />
+                    </div>
+
+                    <!-- Check Out -->
+                    <div>
+                        <label>Check Out Time</label>
+                        <input type="datetime-local" class="form-control" formControlName="check_out_time" />
+                    </div>
+
+                    <!-- Check In Location -->
+                    <div>
+                        <label>Check In Location</label>
+                        <input type="text" class="form-control" formControlName="check_in_location" />
+                    </div>
+
+                    <!-- Check Out Location -->
+                    <div>
+                        <label>Check Out Location</label>
+                        <input type="text" class="form-control" formControlName="check_out_location" />
+                    </div>
+
+                    <!-- Check In Remarks -->
+                    <div>
+                        <label>Check In Remarks</label>
+                        <textarea rows="2" class="form-control" formControlName="check_in_remarks"></textarea>
+                    </div>
+
+                    <!-- Check Out Remarks -->
+                    <div>
+                        <label>Check Out Remarks</label>
+                        <textarea rows="2" class="form-control" formControlName="check_out_remarks"></textarea>
+                    </div>
+
+                    <!-- Check In Photo -->
+                    <div>
+                        <label>Check In Photo</label>
+                        <input type="file" class="form-control" (change)="onFileChange($event, 'checkin')" />
+                        <div *ngIf="checkInPreview" class="mt-2">
+                            <img [src]="checkInPreview" alt="Check-in Photo" class="rounded shadow" width="100" />
+                        </div>
+                    </div>
+
+                    <!-- Check Out Photo -->
+                    <div>
+                        <label>Check Out Photo</label>
+                        <input type="file" class="form-control" (change)="onFileChange($event, 'checkout')" />
+                        <div *ngIf="checkOutPreview" class="mt-2">
+                            <img [src]="checkOutPreview" alt="Check-out Photo" class="rounded shadow" width="100" />
+                        </div>
+                    </div>
+
+                    <!-- Is In Office -->
+                    <div>
+                        <label>Is In Office</label>
+                        <select class="form-control" formControlName="is_in_office">
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label>Status</label>
+                        <select class="form-control" formControlName="status">
+                            <option value="Checked In">Checked In</option>
+                            <option value="Checked Out">Checked Out</option>
+                        </select>
+                    </div>
+
+                    <!-- Work Duration -->
+                    <div class="col-span-2">
+                        <label>Work Duration (minutes)</label>
+                        <input type="number" class="form-control" formControlName="work_duration" />
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="onClose()">Batal</button>
-                <button class="btn btn-danger" (click)="onSave()">Simpan</button>
+
+            <div class="modal-footer border-top">
+                <button class="btn btn-secondary" (click)="closeModal()">Batal</button>
+                <button class="btn btn-primary" (click)="submitForm()">
+                    {{ mode === 'create' ? 'Simpan' : 'Update' }}
+                </button>
             </div>
         </div>
     </div>

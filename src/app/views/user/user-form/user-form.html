@@ -1,0 +1,72 @@
+<div class="modal-backdrop fade show" *ngIf="visible"></div>
+
+<div class="modal fade show d-block" tabindex="-1" *ngIf="visible">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ mode === 'create' ? 'Tambah User' : 'Edit User' }}</h5>
+                <button type="button" class="btn-close" (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label">Nama</label>
+                        <input type="text" class="form-control" formControlName="name" />
+                        <small class="text-danger" *ngIf="f['name'].touched && f['name'].invalid">Nama wajib
+                            diisi.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email" />
+                        <small class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">Email wajib diisi
+                            dan harus valid.</small>
+                    </div>
+                    <div class="mb-3" *ngIf="mode === 'create'">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" formControlName="password" />
+                        <small class="text-danger" *ngIf="f['password'].touched && f['password'].invalid">Password wajib
+                            diisi.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" formControlName="role">
+                            <option value="">Pilih Role</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Manager">Manager</option>
+                        </select>
+                        <small class="text-danger" *ngIf="f['role'].touched && f['role'].invalid">Role wajib
+                            dipilih.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Employee ID</label>
+                        <input type="text" class="form-control" formControlName="employee_id" />
+                        <small class="text-danger" *ngIf="f['employee_id'].touched && f['employee_id'].invalid">Employee
+                            ID wajib diisi.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Department</label>
+                        <input type="text" class="form-control" formControlName="department" />
+                        <small class="text-danger" *ngIf="f['department'].touched && f['department'].invalid">Department
+                            wajib diisi.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Profile Photo</label>
+                        <input type="file" accept="image/*" class="form-control" (change)="onFileChange($event)" />
+                        <div *ngIf="previewPhoto" class="mt-2 d-flex justify-content-center">
+                            <img [src]="previewPhoto" alt="Preview"
+                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="onClose()">Batal</button>
+                <button class="btn btn-danger" (click)="onSave()" [disabled]="saving">
+                    <span *ngIf="saving" class="spinner-border spinner-border-sm me-2"></span>
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

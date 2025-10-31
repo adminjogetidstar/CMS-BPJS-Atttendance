@@ -85,12 +85,6 @@
         cursor: pointer;
         transition: $transition-default;
 
-        &:hover {
-          background-color: #fff5f5;
-          transform: translateY(-1px);
-          box-shadow: $shadow-sm;
-        }
-
         &:active {
           transform: translateY(1px);
           box-shadow: $shadow-sm;

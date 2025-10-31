@@ -5,7 +5,8 @@ export enum TdTypes {
     actionEdit = 'actionEdit',
     actionEditDelete = 'actionEditDelete',
     status = 'status',
-    dateTime = 'dateTime'
+    dateTime = 'dateTime',
+    boolean = 'boolean'
 }
 
 export enum ActionTexts {

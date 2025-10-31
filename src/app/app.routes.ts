@@ -7,6 +7,11 @@ export const routes: Routes = [
         component: DesktopLayout,
         children: [
             {
+                path: '',
+                loadChildren: () =>
+                    import('./views/dashboard/dashboard.routes').then((m) => m.routes),
+            },
+            {
                 path: 'user',
                 loadChildren: () =>
                     import('./views/user/user.routes').then((m) => m.routes),
@@ -22,9 +27,9 @@ export const routes: Routes = [
                     import('./views/attendance/attendance.routes').then((m) => m.routes),
             },
             {
-                path: 'activities',
+                path: 'purposes',
                 loadChildren: () =>
-                    import('./views/activities/activities.routes').then((m) => m.routes),
+                    import('./views/purposes/purposes.routes').then((m) => m.routes),
             },
         ]
     },

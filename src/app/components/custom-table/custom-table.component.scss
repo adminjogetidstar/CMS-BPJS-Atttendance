@@ -9,6 +9,12 @@ $base-text-color: #717171;
     }
 }
 
+.profile-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
 .table-idstar {
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
@@ -170,5 +176,22 @@ $base-text-color: #717171;
     &.status-alfa {
         background-color: #fee2e2;
         color: #991b1b;
+    }
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+
+    &.badge-success {
+        background-color: #22c55e;
+    }
+
+    &.badge-danger {
+        background-color: #ef4444;
     }
 }

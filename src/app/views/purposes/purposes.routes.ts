@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { Activities } from './activities';
+import { Purposes } from './purposes';
 
 export const routes: Routes = [
     {
         path: '',
         children: [
-            { path: '', component: Activities },
+            { path: '', component: Purposes },
         ],
     },
 ];

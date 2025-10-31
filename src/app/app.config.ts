@@ -12,7 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { routes } from './app.routes';
-import { AttendanceState } from './store/attendance/attendance.state';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom(
       NgxsModule.forRoot([
-        // AttendanceState
       ], { developmentMode: isDevMode() }),
       NgxsReduxDevtoolsPluginModule.forRoot({ disabled: !isDevMode() }),
       BrowserAnimationsModule,
@@ -33,7 +32,8 @@ export const appConfig: ApplicationConfig = {
         progressBar: true,
         preventDuplicates: true,
       }),
-      NgxsReduxDevtoolsPluginModule.forRoot()
+      NgxsReduxDevtoolsPluginModule.forRoot(),
+      BsDatepickerModule.forRoot()
     ),
   ],
 };

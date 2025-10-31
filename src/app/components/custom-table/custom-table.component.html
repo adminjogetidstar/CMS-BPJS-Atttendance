@@ -36,10 +36,10 @@
       <td>
         @if (config.tdType === TdTypes.text) {
         <div class="td-content-ellipsis">
-          @if (config.fieldName === 'isApprover') {
-          <div>{{ getValue(data, config.fieldName) }}</div>
-          } @else if (config.fieldName === 'status') {
-          <div>{{ data[config.fieldName] }}</div>
+          @if(config.fieldName === 'profile_photo') {
+          <img *ngIf="data[config.fieldName]; else noPhoto" [src]="data[config.fieldName]" class="profile-thumb"
+            alt="Profile" />
+          <ng-template #noPhoto><span>-</span></ng-template>
           } @else {
           {{ getValue(data, config.fieldName) }}
           }
@@ -58,33 +58,52 @@
           </span>
         </div>
         }
-        <!-- DATETIME -->
-        @else if (config.tdType === TdTypes.dateTime) {
-        <div class="td-content-ellipsis text-gray-700">
-          {{ data[config.fieldName] ? (data[config.fieldName] | date:'shortTime') : '-' }}
-        </div>
+        @else if (config.fieldName === 'profile_photo') {
+      <td>
+        @if(data[config.fieldName]) {
+        <img [src]="data[config.fieldName]" alt="Profile" class="profile-thumb" />
+        } @else {
+        <span>-</span>
         }
-
-        @else if (config.tdType === TdTypes.actionDetail) {
-        <button class="div-button action" (click)="actionClickHandle('Detail', data)">
-          {{ ActionTexts[config.tdType] }}
+      </td>
+      }
+      <!-- DATETIME -->
+      @else if (config.tdType === TdTypes.dateTime) {
+      <div class="td-content-ellipsis text-gray-700">
+        {{ data[config.fieldName] ? (data[config.fieldName] | date:'short') : '-' }}
+      </div>
+      }
+      <!-- BOOLEAN -->
+      @else if (config.tdType === TdTypes.boolean) {
+      <div class="td-content-ellipsis">
+        <span class="badge" [ngClass]="{
+        'badge-success': data[config.fieldName] === true,
+        'badge-danger': data[config.fieldName] === false
+      }">
+          {{ data[config.fieldName] ? 'Yes' : 'No' }}
+        </span>
+      </div>
+      }
+      @else if (config.tdType === TdTypes.actionDetail) {
+      <button class="div-button action" (click)="actionClickHandle('Detail', data)">
+        {{ ActionTexts[config.tdType] }}
+      </button>
+      }
+      @else if (config.tdType === TdTypes.actionEdit) {
+      <button class="div-button edit" (click)="actionClickHandle('edit', data)" title="Edit">
+        <fa-icon [icon]="fa.faEdit"></fa-icon>
+      </button>
+      }
+      @else if (config.tdType === TdTypes.actionEditDelete) {
+      <div class="action-edit-delete-wrapper">
+        <button class="div-butdetail" (click)="actionClickHandle('edit', data)">
+          <img class="me-2 tombol" src="/assets/icons/icoedit.png" alt="edit" />
         </button>
-        }
-        @else if (config.tdType === TdTypes.actionEdit) {
-        <button class="div-button edit" (click)="actionClickHandle('edit', data)" title="Edit">
-          <fa-icon [icon]="fa.faEdit"></fa-icon>
+        <button class="div-butdetail" (click)="actionClickHandle('delete', data)">
+          <img class="me-2 tombol" src="/assets/icons/icodelete.png" alt="delete" />
         </button>
-        }
-        @else if (config.tdType === TdTypes.actionEditDelete) {
-        <div class="action-edit-delete-wrapper">
-          <button class="div-butdetail" (click)="actionClickHandle('edit', data)">
-            <img class="me-2 tombol" src="/assets/icons/icoedit.png" alt="edit" />
-          </button>
-          <button class="div-butdetail" (click)="actionClickHandle('delete', data)">
-            <img class="me-2 tombol" src="/assets/icons/icodelete.png" alt="delete" />
-          </button>
-        </div>
-        }
+      </div>
+      }
       </td>
       }
       }

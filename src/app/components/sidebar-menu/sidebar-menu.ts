@@ -23,14 +23,15 @@ export class SidebarMenu {
 
   groupedMenus: Record<string, Menu[]> = {
     Dashboard: [
-      { menu_name: 'Home', route: '/' },
-      { menu_name: 'Analytics', route: '/analytics' },
+      { menu_name: 'Analytic', route: '/' },
     ],
-    Management: [
-      { menu_name: 'Users', route: '/user' },
+    Reports: [
       { menu_name: 'Ofiice Location', route: '/office-location' },
       { menu_name: 'Attendance', route: '/attendance' },
-      { menu_name: 'Activities', route: '/activities' },
+      { menu_name: 'Purposes', route: '/purposes' },
+    ],
+    Master: [
+      { menu_name: 'Users', route: '/user' },
     ],
     Settings: [
       { menu_name: 'Preferences', route: '/preferences' },
